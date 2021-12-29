@@ -26,19 +26,19 @@ class _SignInState extends State<SignIn> {
     });
   }
 
-  List _isHovering = [false, false, false, false, false, false];
-  String email_id = "";
-  String password = "";
-  bool _isLoading = false;
-  bool _hasError = false;
-  DocumentSnapshot details;
-  Future<String> getUserData() async {
-    details = await Database("","","","","","").getUserData(email_id);
-
-    for (int i = 1;i<5;i++){
-      if (details.data()['event_${i}'] != null && details.data()['event_${i}'].toString().length !=0)
-        return details.data()['name'];
-    }
+   List _isHovering = [false, false, false, false, false, false];
+   String usn = "";
+   String password = "";
+   bool _isLoading = false;
+   bool _hasError = false;
+   DocumentSnapshot details;
+   Future<String> getUserData() async {
+    details = await Database("","","","","","").getUserData(usn);
+    details = await Database("","","","","","").getUserData(password);
+  //   for (int i = 1;i<5;i++){
+  //     if (details.data()['event_${i}'] != null && details.data()['event_${i}'].toString().length !=0)
+  //       return details.data()['name'];
+  //   }
   }
 
   @override
@@ -375,7 +375,7 @@ class _SignInState extends State<SignIn> {
                             ),
                           ):SizedBox(height: 0),
                           Text(
-                            'Email-Id',
+                            'USN NUMBER',
                             style: GoogleFonts.montserrat(
                                 fontSize: 22
                             ),
@@ -383,11 +383,11 @@ class _SignInState extends State<SignIn> {
                           TextFormField(
                             keyboardType: TextInputType.emailAddress,
                             decoration: InputDecoration(
-                              hintText: 'Enter your email id',
+                              hintText: 'Enter your usn number',
                             ),
                             onChanged: (val) {
                               setState(() {
-                                email_id = val;
+                                usn = val;
                               });
                             },
                             maxLines: 1,
@@ -435,8 +435,8 @@ class _SignInState extends State<SignIn> {
                               elevation: 2,
                               onPressed: () async {
                                 if(_formkey.currentState.validate()){
-                                  email_id.replaceAll(' ', '');
-                                  dynamic res = await Database("","","","","","").signIn(email_id, password);
+                                  usn.replaceAll(' ', '');
+                                  dynamic res = await Database("","","","","","").signIn(usn, password);
                                   setState(() {
                                     _isLoading = true;
                                   });
@@ -449,7 +449,7 @@ class _SignInState extends State<SignIn> {
                                   }
                                   else{
                                     setState(() {
-                                      themeChange.email = email_id;
+                                      themeChange.email = usn;
                                       themeChange.isSignedIn = true;
                                     });// print('object');
                                   }

@@ -23,6 +23,7 @@ class _RegisterState extends State<Register> {
   String phno;
   String usn;
   String email;
+  String password;
   String branch;
 
   static List <String> branches=[
@@ -632,6 +633,48 @@ class _RegisterState extends State<Register> {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top:10,left:30),
+                            child: Text("Enter Your password",style: GoogleFonts.montserrat(fontSize: 22)),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 5 ),
+
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(20, 0, 100, 10),
+                              child: TextFormField(
+                                keyboardType: TextInputType.number,
+                                maxLines: 1,
+
+
+                                decoration: InputDecoration(
+                                  //hintText: "9845122345 ",
+                                  //labelText: "Full Usn",
+                                  focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(width: 3)
+                                  ),
+
+
+                                ),
+                                validator: (password) {
+                                  if(usn.isEmpty){
+                                    return "proper password is Required";
+                                  }
+                                  if(usn.length < 8){
+                                     return 'should atleast have 8 characters';
+                                 }
+                                  return null;
+
+                                },
+                                onSaved: (val) {
+                                  password = val;
+
+                                } ,
+                              ),
+
+                            ),
+
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top:10,left:30),
                             child: Text("Enter Your Branch",style: GoogleFonts.montserrat(fontSize: 22)),
                           ),
                           Padding(
@@ -680,11 +723,12 @@ class _RegisterState extends State<Register> {
                                     "usn":usn,
                                     "branch":branch,
                                     "email":email,
-
+                                    "password":password,
                                   };
                                   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
                                   firebaseFirestore.collection('Data').add(uData);
 
+                                  Navigator.pushNamed(context, '/');
                                 }else
                                   {
                                     debugPrint('Please fill the form again');
