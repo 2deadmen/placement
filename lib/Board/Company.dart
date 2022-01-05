@@ -247,7 +247,7 @@ class _CompanyState extends State<Company> {
                     onChanged: (val) {
                       setState(() {
                         if (val.compareTo("Sign Out") == 0) {
-                          Database("", "", "", "", "", "")
+                          Database( "", "")
                               .signOut();
                           themeChange.username = "";
                           themeChange.email = "";
@@ -406,7 +406,7 @@ class _CompanyState extends State<Company> {
                   leading: Image.network(
                       'https://img.icons8.com/fluent-systems-regular/24/000000/exit.png'),
                   onTap: () {
-                    Database("", "", "", "", "", "").signOut();
+                    Database( "", "").signOut();
                     themeChange.username = "";
                     themeChange.email = "";
                     themeChange.isSignedIn = false;

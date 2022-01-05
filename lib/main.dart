@@ -2,7 +2,7 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:placement_original/Database.dart';
+import 'package:placement_original/services/Database.dart';
 import 'package:provider/provider.dart';
 import 'package:placement_original/Board/Company.dart';
 import 'package:placement_original/Contact/Contact_us.dart';
@@ -10,7 +10,7 @@ import 'package:placement_original/DashBoard/dashboard.dart';
 import 'package:placement_original/Facilities/Facilities.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:placement_original/Register/logIn.dart';
-import 'package:placement_original/Database.dart';
+import 'package:placement_original/services/Database.dart';
 import 'package:placement_original/Rotary/Placements.dart';
 import 'package:placement_original/Rotary/prism.dart';
 import 'package:placement_original/home/Home.dart';
@@ -63,7 +63,7 @@ class _MyAppState extends State<MyApp> {
               '/contact_us': (context) => Contact_us(),
               '/register': (context) => Register(),
               '/login': (context) => SignIn(),
-              '/dashboard': (context) => DashBoard(),
+             // '/dashboard': (context) => DashBoard(),
 
 
               '/Stats':(context) =>Stats(),

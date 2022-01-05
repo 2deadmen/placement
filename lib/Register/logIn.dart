@@ -26,20 +26,20 @@ class _SignInState extends State<SignIn> {
     });
   }
 
-   List _isHovering = [false, false, false, false, false, false];
-   String usn = "";
-   String password = "";
-   bool _isLoading = false;
-   bool _hasError = false;
-   DocumentSnapshot details;
-   Future<String> getUserData() async {
-    details = await Database("","","","","","").getUserData(usn);
-    details = await Database("","","","","","").getUserData(password);
+  List _isHovering = [false, false, false, false, false, false];
+  String email_id = "";
+  String password = "";
+  bool _isLoading = false;
+  bool _hasError = false;
+  DocumentSnapshot details;
+  // Future<String> getUserData() async {
+  //   details = await Database("","","","","","").getUserData(email_id);
+  //
   //   for (int i = 1;i<5;i++){
   //     if (details.data()['event_${i}'] != null && details.data()['event_${i}'].toString().length !=0)
   //       return details.data()['name'];
   //   }
-  }
+  // }
 
   @override
   void initState() {
@@ -57,7 +57,7 @@ class _SignInState extends State<SignIn> {
     // print(screenSize.height*0.45);
     // print(screenSize.width);
     final themeChange = Provider.of<DarkThemeProvider>(context);
-    return themeChange.isSignedIn?DashBoard():Scaffold(
+    return themeChange.isSignedIn?MyHomePage():Scaffold(
       // extendBodyBehindAppBar: true,
       appBar: isScreenSmall?
       AppBar(
@@ -295,7 +295,7 @@ class _SignInState extends State<SignIn> {
                   title: Text('Sign Out'),
                   leading: Image.network('https://img.icons8.com/fluent-systems-regular/24/000000/exit.png'),
                   onTap: () {
-                    Database("","","","","","").signOut();
+                    Database("","").signOut();
                     themeChange.username = "";
                     themeChange.email = "";
                     themeChange.isSignedIn = false;
@@ -375,7 +375,7 @@ class _SignInState extends State<SignIn> {
                             ),
                           ):SizedBox(height: 0),
                           Text(
-                            'USN NUMBER',
+                            'Email-Id',
                             style: GoogleFonts.montserrat(
                                 fontSize: 22
                             ),
@@ -383,11 +383,11 @@ class _SignInState extends State<SignIn> {
                           TextFormField(
                             keyboardType: TextInputType.emailAddress,
                             decoration: InputDecoration(
-                              hintText: 'Enter your usn number',
+                              hintText: 'Enter your email id',
                             ),
                             onChanged: (val) {
                               setState(() {
-                                usn = val;
+                                email_id = val;
                               });
                             },
                             maxLines: 1,
@@ -435,8 +435,8 @@ class _SignInState extends State<SignIn> {
                               elevation: 2,
                               onPressed: () async {
                                 if(_formkey.currentState.validate()){
-                                  usn.replaceAll(' ', '');
-                                  dynamic res = await Database("","","","","","").signIn(usn, password);
+                                  email_id.replaceAll(' ', '');
+                                  dynamic res = await Database("","").signIn(email_id, password);
                                   setState(() {
                                     _isLoading = true;
                                   });
@@ -449,7 +449,7 @@ class _SignInState extends State<SignIn> {
                                   }
                                   else{
                                     setState(() {
-                                      themeChange.email = usn;
+                                      themeChange.email = email_id;
                                       themeChange.isSignedIn = true;
                                     });// print('object');
                                   }
